@@ -1,0 +1,31 @@
+services:
+    frontend:
+       image: techdome-frontend:v7
+       ports:
+         - 80:80
+       env_file:
+        - .env
+       depends_on:
+         - backend
+       networks:
+         - techdome-networks
+    backend:
+      image: techdome-backend:v2
+      ports:
+        - 4000:4000
+      env_file:
+        - .env
+      depends_on:
+        - mongo
+      networks:
+        - techdome-networks
+    mongo:
+      image: mongo:latest
+      ports:
+        - 27017:27017
+      # volumes:
+      #    - mongo-data:/data/db
+      networks:
+        - techdome-networks
+networks:
+  techdome-networks:
